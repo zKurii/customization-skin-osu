@@ -7,7 +7,7 @@ Editor visual de skins para osu!mania, com pré-visualização ilustrativa que a
 [Abrir o Skinlab no GitHub Pages](https://zkurii.github.io/customization-skin-osu/).
 
 O site é publicado automaticamente pelo GitHub Pages quando há uma alteração na branch `main`.
-Na primeira vez, [ative o GitHub Pages nas configurações do repositório](https://github.com/zKurii/customization-skin-osu/settings/pages) selecionando **GitHub Actions** como origem. Em seguida, abra o [workflow de publicação](https://github.com/zKurii/customization-skin-osu/actions/workflows/deploy-pages.yml) e clique em **Run workflow** para publicar a versão inicial. O link acima estará disponível quando a execução terminar; alterações futuras na branch `main` serão publicadas automaticamente.
+Na primeira execução, o workflow tenta ativar o GitHub Pages automaticamente. Se o GitHub não permitir a ativação automática, [selecione **GitHub Actions** nas configurações do Pages](https://github.com/zKurii/customization-skin-osu/settings/pages) e execute novamente o [workflow de publicação](https://github.com/zKurii/customization-skin-osu/actions/workflows/deploy-pages.yml).
 
 ## Usar
 
