@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101016">
+    <meta name="description" content="Monte e visualize sua própria skin de osu!mania em tempo real.">
+    <title>Skinlab — osu!mania skin editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;450;500;550;600;650;700;750;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Skinlab, página inicial">
+        <span class="brand-icon" aria-hidden="true">s<span>!</span></span>
+        <span class="brand-name">skin<span>lab</span></span>
+      </a>
+      <div class="topbar-project">
+        <span class="live-dot" aria-hidden="true"></span>
+        PROJETO SEM TÍTULO
+      </div>
+      <div class="topbar-actions">
+        <button class="button button-quiet" id="reset-button" type="button">Restaurar</button>
+        <button class="button button-primary" id="export-button" type="button">
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 13v3h12v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Exportar skin
+        </button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-intro">
+          <span class="eyebrow"><span class="eyebrow-line"></span> SEU ESPAÇO DE CRIAÇÃO</span>
+          <h1>Faça do seu<br>jeito<span class="accent">.</span></h1>
+          <p>Personalize cada detalhe da sua skin de mania e veja acontecer na hora.</p>
+        </div>
+
+        <div class="sidebar-section-heading">
+          <span>PERSONALIZAR</span>
+          <span class="section-count">01 — 03</span>
+        </div>
+
+        <nav class="tabs" aria-label="Opções de personalização">
+          <button class="tab is-active" type="button" data-tab="notes" aria-selected="true">
+            <span class="tab-icon tab-icon-notes" aria-hidden="true">▮</span>
+            <span>Notas</span>
+            <span class="tab-chevron" aria-hidden="true">↗</span>
+          </button>
+          <button class="tab" type="button" data-tab="gameplay" aria-selected="false">
+            <span class="tab-icon tab-icon-gameplay" aria-hidden="true">⌘</span>
+            <span>Gameplay</span>
+            <span class="tab-chevron" aria-hidden="true">↗</span>
+          </button>
+          <button class="tab" type="button" data-tab="ranking" aria-selected="false">
+            <span class="tab-icon tab-icon-ranking" aria-hidden="true">✳</span>
+            <span>Painel de ranking</span>
+            <span class="tab-chevron" aria-hidden="true">↗</span>
+          </button>
+        </nav>
+
+        <section class="settings-panel" data-panel="notes">
+          <div class="settings-heading"><h2>As suas notas</h2><span class="step-number">01</span></div>
+          <p class="settings-description">Escolha um estilo para as notas que aparecem nas pistas.</p>
+          <div class="option-grid note-options" role="group" aria-label="Estilo das notas">
+            <button class="style-option is-selected" type="button" data-note="glow" aria-pressed="true">
+              <span class="note-sample note-sample-glow" aria-hidden="true"></span>
+              <span>Glow</span>
+            </button>
+            <button class="style-option" type="button" data-note="block" aria-pressed="false">
+              <span class="note-sample note-sample-block" aria-hidden="true"></span>
+              <span>Block</span>
+            </button>
+            <button class="style-option" type="button" data-note="round" aria-pressed="false">
+              <span class="note-sample note-sample-round" aria-hidden="true"></span>
+              <span>Round</span>
+            </button>
+            <button class="style-option" type="button" data-note="minimal" aria-pressed="false">
+              <span class="note-sample note-sample-minimal" aria-hidden="true"></span>
+              <span>Minimal</span>
+            </button>
+          </div>
+          <div class="setting-row color-row">
+            <label for="note-color">Cor das notas</label>
+            <label class="color-picker" for="note-color">
+              <span id="note-color-swatch" class="color-swatch"></span>
+              <span id="note-color-value">#B8A0FF</span>
+              <input id="note-color" type="color" value="#b8a0ff" aria-label="Escolher cor das notas">
+            </label>
+          </div>
+          <div class="setting-row upload-row">
+            <div class="setting-label">
+              <label for="note-upload">Arte personalizada</label>
+              <span>PNG, JPG ou WebP</span>
+            </div>
+            <label class="upload-button" for="note-upload" id="note-upload-label">Adicionar <span aria-hidden="true">+</span></label>
+            <input class="visually-hidden" id="note-upload" type="file" accept="image/png,image/jpeg,image/webp">
+          </div>
+          <button class="text-button clear-asset" type="button" data-clear="note" hidden>Remover arte personalizada</button>
+        </section>
+
+        <section class="settings-panel" data-panel="gameplay" hidden>
+          <div class="settings-heading"><h2>Seu gameplay</h2><span class="step-number">02</span></div>
+          <p class="settings-description">Configure a aparência das pistas e do fundo.</p>
+          <label class="field-label" for="key-mode">Modo de teclas</label>
+          <div class="select-wrap">
+            <select id="key-mode">
+              <option value="4">4K · quatro teclas</option>
+              <option value="7">7K · sete teclas</option>
+            </select>
+            <span aria-hidden="true">⌄</span>
+          </div>
+          <label class="field-label accent-label" for="accent-color">Cor de destaque</label>
+          <div class="setting-row color-row">
+            <label for="accent-color">Linhas e acentos</label>
+            <label class="color-picker" for="accent-color">
+              <span id="accent-color-swatch" class="color-swatch"></span>
+              <span id="accent-color-value">#8B75FF</span>
+              <input id="accent-color" type="color" value="#8b75ff" aria-label="Escolher cor de destaque">
+            </label>
+          </div>
+          <div class="setting-row upload-row">
+            <div class="setting-label">
+              <label for="background-upload">Imagem de fundo</label>
+              <span>PNG, JPG ou WebP</span>
+            </div>
+            <label class="upload-button" for="background-upload" id="background-upload-label">Adicionar <span aria-hidden="true">+</span></label>
+            <input class="visually-hidden" id="background-upload" type="file" accept="image/png,image/jpeg,image/webp">
+          </div>
+          <button class="text-button clear-asset" type="button" data-clear="background" hidden>Remover imagem de fundo</button>
+          <button class="text-button clear-asset" type="button" data-clear="background" hidden>Remover imagem de fundo</button>
+          <div class="setting-row toggle-row">
+            <div class="setting-label">
+              <span class="toggle-title">Efeito de movimento</span>
+              <span>Notas descendo pelas pistas</span>
+            </div>
+            <label class="toggle">
+              <input id="motion-toggle" type="checkbox" checked>
+              <span class="toggle-track"></span>
+              <span class="visually-hidden">Ativar animação das notas</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-panel" data-panel="ranking" hidden>
+          <div class="settings-heading"><h2>Seu painel</h2><span class="step-number">03</span></div>
+          <p class="settings-description">Escolha como mostrar o resultado da partida.</p>
+          <div class="option-grid rank-options" role="group" aria-label="Estilo do painel de ranking">
+            <button class="style-option rank-option is-selected" type="button" data-rank="classic" aria-pressed="true">
+              <span class="rank-sample rank-sample-classic" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span>Classic</span>
+            </button>
+            <button class="style-option rank-option" type="button" data-rank="compact" aria-pressed="false">
+              <span class="rank-sample rank-sample-compact" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span>Compact</span>
+            </button>
+            <button class="style-option rank-option" type="button" data-rank="glass" aria-pressed="false">
+              <span class="rank-sample rank-sample-glass" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span>Glass</span>
+            </button>
+          </div>
+          <div class="setting-row color-row">
+            <label for="rank-color">Cor do painel</label>
+            <label class="color-picker" for="rank-color">
+              <span id="rank-color-swatch" class="color-swatch"></span>
+              <span id="rank-color-value">#FF79B9</span>
+              <input id="rank-color" type="color" value="#ff79b9" aria-label="Escolher cor do painel de ranking">
+            </label>
+          </div>
+          <div class="setting-row upload-row">
+            <div class="setting-label">
+              <label for="ranking-upload">Arte para o painel</label>
+              <span>PNG, JPG ou WebP</span>
+            </div>
+            <label class="upload-button" for="ranking-upload" id="ranking-upload-label">Adicionar <span aria-hidden="true">+</span></label>
+            <input class="visually-hidden" id="ranking-upload" type="file" accept="image/png,image/jpeg,image/webp">
+          </div>
+          <button class="text-button clear-asset" type="button" data-clear="ranking" hidden>Remover arte personalizada</button>
+        </section>
+
+        <div class="sidebar-footer">
+          <span class="footer-mark" aria-hidden="true">✳</span>
+          <span>Feito para jogar do seu jeito.</span>
+          <span class="footer-version">MANIA / 01</span>
+        </div>
+      </aside>
+
+      <section class="preview-area" aria-label="Pré-visualização em tempo real">
+        <div class="preview-topline">
+          <div>
+            <span class="eyebrow preview-eyebrow"><span class="eyebrow-line"></span> PRÉ-VISUALIZAÇÃO AO VIVO</span>
+            <h2>Assim vai ficar<span class="accent">.</span></h2>
+          </div>
+          <div class="preview-controls">
+            <span class="preview-live"><span class="live-dot" aria-hidden="true"></span> AO VIVO</span>
+            <span class="preview-divider"></span>
+            <span id="preview-mode" class="mode-badge"><span aria-hidden="true">▤</span> 4K</span>
+          </div>
+        </div>
+
+        <div class="game-frame">
+          <div class="game-bg" id="game-background" aria-hidden="true"></div>
+          <div class="game-vignette" aria-hidden="true"></div>
+          <div class="game-topbar">
+            <div class="song-info"><span class="song-wave" aria-hidden="true">∿</span><span><strong>Starlight · osu!mania</strong><small>Skinlab original · 2026</small></span></div>
+            <div class="game-stats"><span>ACCURACY <strong>98.42<span>%</span></strong></span><i></i><span>SCORE <strong>001 284 630</strong></span></div>
+          </div>
+
+          <div class="playfield" id="playfield" data-mode="4" data-note="glow" data-ranking="classic">
+            <div class="side-glow" aria-hidden="true"></div>
+            <div id="lanes" class="lanes" aria-label="Pistas de osu!mania">
+            </div>
+            <div class="judgement-line"></div>
+            <div class="hit-flash" aria-hidden="true"></div>
+            <div class="judgement" aria-hidden="true"><strong>300</strong><span>PERFECT!</span></div>
+            <div class="combo">128 <span>COMBO</span></div>
+            <div class="accuracy-meter" aria-hidden="true"><span></span></div>
+            <div class="rank-panel">
+              <span class="rank-label">RESULTADO</span>
+              <span class="rank-grade" id="rank-grade">S</span>
+              <span class="rank-accuracy">98.42<span>%</span></span>
+              <span class="rank-divider"></span>
+              <span class="rank-result-score">1,284,630 <span>PONTOS</span></span>
+              <span class="rank-stats"><span>300 <b>1,042</b></span><span>MISS <b>002</b></span></span>
+            </div>
+          </div>
+
+          <div class="game-footer">
+            <span>ST★RLIGHT</span>
+            <span class="song-progress"><span></span></span>
+            <span>01:42 <i>/</i> 03:26</span>
+          </div>
+        </div>
+
+        <div class="preview-caption">
+          <span><span class="caption-star" aria-hidden="true">✳</span> Toda mudança aparece aqui instantaneamente.</span>
+          <span class="preview-resolution">PRÉVIA ILUSTRATIVA <span>·</span> NÃO É CAPTURA DO JOGO</span>
+        </div>
+
+        <div class="preview-bottom">
+          <div class="bottom-tip"><span class="tip-icon" aria-hidden="true">↗</span><span><strong>Uma skin com a sua cara.</strong><span>Combine notas, cores e painel para criar algo só seu.</span></span></div>
+          <span class="bottom-index">SKINLAB<span>®</span> &nbsp; / &nbsp; 2026</span>
+        </div>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
